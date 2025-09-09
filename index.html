@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Meme Voting Arena 🎭</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Meme Voting Arena 🎭</h1>
+  <div id="meme-feed"></div>
+  <div id="login-section">
+    <input id="username" placeholder="Username">
+    <input id="password" type="password" placeholder="Password">
+    <button onclick="login()">Login</button>
+    <button onclick="register()">Register</button>
+    <span id="user"></span>
+  </div>
+  <div id="upload-section" style="display:none;">
+    <input id="image-url" placeholder="Meme image URL">
+    <input id="caption" placeholder="Caption">
+    <button onclick="uploadMeme()">Upload Meme</button>
+  </div>
+  <h2>Leaderboard</h2>
+  <ul id="leaderboard"></ul>
+  <script src="https://cdn.socket.io/4.7.3/socket.io.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

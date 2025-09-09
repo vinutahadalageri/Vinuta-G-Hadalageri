@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon Cyberpunk Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base Styles & Variables */
+        :root {
+            --neon-cyan: #0ff;
+            --neon-magenta: #f0f;
+            --neon-purple: #9457eb;
+            --dark-bg: #0a0a12;
+            --darker-bg: #050508;
+            --text-color: #fff;
+            --terminal-text: #00ff41;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(15, 255, 255, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(240, 0, 255, 0.05) 0%, transparent 20%);
+            min-height: 100vh;
+        }
+
+        /* Cyberpunk scanline effect */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.15),
+                rgba(0, 0, 0, 0.15) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header & Navigation */
+        header {
+            padding: 20px 0;
+            position: relative;
+            border-bottom: 1px solid var(--neon-cyan);
+            box-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-shadow: 0 0 5px var(--neon-cyan);
+            color: var(--neon-cyan);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 1.1rem;
+            position: relative;
+            padding: 5px 0;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--neon-magenta);
+        }
+
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--neon-magenta);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Terminal Intro Section */
+        #intro {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            padding: 60px 0;
+            position: relative;
+        }
+
+        .terminal {
+            background-color: var(--darker-bg);
+            border: 1px solid var(--neon-cyan);
+            border-radius: 5px;
+            box-shadow: 0 0 20px var(--neon-cyan), inset 0 0 10px rgba(0, 255, 255, 0.1);
+            padding: 30px;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .terminal::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 25px;
+            background: linear-gradient(90deg, var(--neon-purple), var(--neon-magenta));
+            border-bottom: 1px solid var(--neon-cyan);
+        }
+
+        .terminal-content {
+            margin-top: 40px;
+        }
+
+        .command {
+            color: var(--terminal-text);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .typing-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .prompt {
+            color: var(--neon-cyan);
+            margin-right: 10px;
+        }
+
+        #typing-text {
+            color: var(--terminal-text);
+            overflow: hidden;
+            border-right: 2px solid var(--neon-cyan);
+            white-space: nowrap;
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { border-color: transparent; }
+            50% { border-color: var(--neon-cyan); }
+        }
+
+        /* Skills Section */
+        #skills {
+            padding: 80px 0;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--neon-magenta);
+            text-shadow: 0 0 10px var(--neon-magenta);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 30px;
+        }
+
+        .skill-card {
+            background: rgba(10, 10, 18, 0.8);
+            border: 1px solid var(--neon-purple);
+            border-radius: 5px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .skill-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--neon-purple), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 15px var(--neon-purple);
+        }
+
+        .skill-card:hover::before {
+            opacity: 0.2;
+        }
+
+        .skill-card i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        .skill-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        /* Projects Section */
+        #projects {
+            padding: 80px 0;
+            position: relative;
+        }
+
+        .projects-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .project-card {
+            height: 300px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+
+        .project-card:hover .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(148, 87, 235, 0.5);
+            background: linear-gradient(135deg, var(--darker-bg), var(--dark-bg));
+            border: 1px solid var(--neon-purple);
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+            text-align: center;
+        }
+
+        .project-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: var(--neon-magenta);
+            text-shadow: 0 0 15px var(--neon-magenta);
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--neon-cyan);
+        }
+
+        .project-desc {
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+
+        /* Contact Section */
+        #contact {
+            padding: 80px 0;
+            position: relative;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+
+        .contact-info {
+            padding: 20px;
+        }
+
+        .contact-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--neon-cyan);
+        }
+
+        .contact-info p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .contact-info i {
+            color: var(--neon-magenta);
+            margin-right: 10px;
+            width: 20px;
+        }
+
+        .contact-form {
+            padding: 30px;
+            background: rgba(10, 10, 18, 0.8);
+            border: 1px solid var(--neon-cyan);
+            border-radius: 5px;
+            box-shadow: 0 0 15px var(--neon-cyan);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--neon-cyan);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            background: rgba(15, 15, 25, 0.8);
+            border: 1px solid var(--neon-purple);
+            border-radius: 4px;
+            color: var(--text-color);
+            font-size: 1rem;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        .glitch-btn {
+            background: transparent;
+            color: var(--neon-magenta);
+            border: 2px solid var(--neon-magenta);
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+            box-shadow: 0 0 10px var(--neon-magenta);
+        }
+
+        .glitch-btn:hover {
+            background: var(--neon-magenta);
+            color: var(--dark-bg);
+            box-shadow: 0 0 20px var(--neon-magenta);
+            animation: glitch 0.3s infinite;
+        }
+
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            border-top: 1px solid var(--neon-purple);
+            margin-top: 50px;
+            color: var(--neon-cyan);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .skills-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .projects-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .terminal {
+                padding: 20px 15px;
+            }
+            
+            .command {
+                font-size: 1rem;
+            }
+        }
+
+        /* Cyberpunk cityscape background */
+        .cityscape {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 30%;
+            background-image: 
+                linear-gradient(to top, var(--dark-bg) 0%, transparent 100%),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 300' fill='%23333'%3E%3Cpath d='M0,200 L100,200 L100,100 L200,100 L200,150 L300,150 L300,50 L400,50 L400,100 L500,100 L500,200 L600,200 L600,150 L700,150 L700,100 L800,100 L800,200 L900,200 L900,50 L1000,50 L1000,150 L1100,150 L1100,100 L1200,100 L1200,300 L0,300 Z'/%3E%3C/svg%3E");
+            background-size: 100% 100%;
+            z-index: -1;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">CYBERPUNK_VINUTA</div>
+                <ul class="nav-links">
+                    <li><a href="#intro">Home</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Intro Section with Terminal -->
+    <section id="intro">
+        <div class="container">
+            <div class="terminal">
+                <div class="terminal-content">
+                    <div class="command">> Innovation begins with curiosity </div>
+                    <div class="command">> Welcome to GDG - where code meets community</div>
+                    <div class="command">> Fuel your learning journey</div>
+                    <div class="typing-container">
+                        <span class="prompt">></span>
+                        <span id="typing-text"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <div class="container">
+            <h2 class="section-title">-SKILL_GRID-</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <i class="fab fa-html5"></i>
+                    <h3>HTML5</h3>
+                    <p>Semantic Markup</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-css3-alt"></i>
+                    <h3>CSS3</h3>
+                    <p>Modern Styling</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-js"></i>
+                    <h3>JavaScript</h3>
+                    <p>Interactive Web</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-react"></i>
+                    <h3>React</h3>
+                    <p>Component Library</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-node-js"></i>
+                    <h3>Node.js</h3>
+                    <p>Server Side</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-database"></i>
+                    <h3>Database</h3>
+                    <p>Data Management</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <div class="container">
+            <h2 class="section-title">Projects</h2>
+            <div class="projects-container">
+                <div class="project-card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <i class="fas fa-code project-icon"></i>
+                            <h3 class="project-title">Code in style</h3>
+                            <p class="project-desc">Click to flip</p>
+                        </div>
+                        <div class="card-back">
+                            <h3 class="project-title">Code in style</h3>
+                            <p class="project-desc">A futuristic command line interface with glowing neon aesthetics . Built to simulate terminal commands and give developers a morden coding playground</p>
+                            <p class="project-desc">Tech: JavaScript, CSS, HTML</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <i class="fas fa-gamepad project-icon"></i>
+                            <h3 class="project-title">Hack the future</h3>
+                            <p class="project-desc">Click to flip</p>
+                        </div>
+                        <div class="card-back">
+                            <h3 class="project-title">Hack the future</h3>
+                            <p class="project-desc">An interactive cyberpunk - inspired mini - game where players learn programming loigc through challenges and puzzles. Gamifying tech education for fun and skill growth.</p>
+                            <p class="project-desc">Tech: JavaScript, Canvas API</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <i class="fas fa-network-wired project-icon"></i>
+                            <h3 class="project-title">Ai that thinks</h3>
+                            <p class="project-desc">Click to flip</p>
+                        </div>
+                        <div class="card-back">
+                            <h3 class="project-title">Ai that thinks</h3>
+                            <p class="project-desc">A machine learning model built to recognise patterns and make predctions. Demonstrates how artificial neural networks mimic the human brain to process data.</p>
+                            <p class="project-desc">Tech: Python, TensorFlow, JavaScript</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title">Contact</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Get In Touch</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Kaveri hostel , NMIT (on campus) </p>
+                    <p><i class="fas fa-envelope"></i> vinutahadlageri@gmail.com</p>
+                    <p><i class="fas fa-phone"></i> +91 9380140637 </p>
+                    <p><i class="fas fa-clock"></i> Available 24/7 in the digital realm</p>
+                </div>
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" placeholder="Enter your name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" placeholder="Enter your email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" rows="5" placeholder="Enter your message" required></textarea>
+                        </div>
+                        <button type="submit" class="glitch-btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>© 2025 GDG-@Vinuta. All rights reserved. | Designed under open air theatre </p>
+            <p> THANK YOU FOR VISITING </p>
+        </div>
+    </footer>
+
+    <!-- Background Elements -->
+    <div class="cityscape"></div>
+
+    <!-- JavaScript -->
+    <script>
+        // Typing effect for the terminal
+        document.addEventListener('DOMContentLoaded', function() {
+            const text = "Hello, I am Vinuta!";
+            const typingElement = document.getElementById('typing-text');
+            let i = 0;
+            
+            function typeWriter() {
+                if (i < text.length) {
+                    typingElement.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 100);
+                }
+            }
+            
+            typeWriter();
+            
+            // Form submission
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    alert('Message transmitted through the cyber network!');
+                    contactForm.reset();
+                });
+            }
+            
+            // Add parallax effect to cityscape
+            window.addEventListener('scroll', function() {
+                const scrollY = window.scrollY;
+                const cityscape = document.querySelector('.cityscape');
+                if (cityscape) {
+                    cityscape.style.transform = `translateY(${scrollY * -0.2}px)`;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
